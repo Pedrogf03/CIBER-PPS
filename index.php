@@ -30,6 +30,7 @@
 				<ul>
 					<li><a href="Practicas/Practica1/index.php">Práctica 1</a></li>
 					<li><a href="Practicas/Practica2/index.php">Práctica 2</a></li>
+					<li><a href="Practicas/Practica3/sqli2.php">Práctica 3</a></li>
 				</ul>
 			</div>
 		</div>
