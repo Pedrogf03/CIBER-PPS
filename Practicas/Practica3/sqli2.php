@@ -11,13 +11,15 @@
 </div>
 <?php
 if (isset($_GET["articulo"])) {
-    $conexion = mysqli_connect("localhost", "root", "", "demos")
-    or die ("No se puede conectar con el servidor");
+    $conexion = new mysqli("localhost", "root", "", "demos") or die ("No se puede conectar con el servidor");
 
-    $queEmp = "SELECT * FROM demos.articulos where Nombre ='" . $_GET["articulo"] . "'";
+    $sql = "SELECT * FROM demos.articulos where Nombre = ?";
+    $result = $conexion->prepare($sql);
+    $result->bind_param('s', $_GET["articulo"]);
+    $result->execute();
+    $result->store_result();
 
-    $resEmp = mysqli_query($conexion, $queEmp) or die(mysqli_error($conexion));
-    $totEmp = mysqli_num_rows($resEmp);
+    $totEmp = $result->num_rows();
 
     if ($totEmp > 0) {
         echo '<div  class="table">';
