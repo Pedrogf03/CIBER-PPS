@@ -14,18 +14,18 @@ if (isset($_GET["articulo"])) {
     $conexion = new mysqli("localhost", "root", "", "demos") or die ("No se puede conectar con el servidor");
 
     $sql = "SELECT * FROM demos.articulos where Nombre = ?";
-    $result = $conexion->prepare($sql);
-    $result->bind_param('s', $_GET["articulo"]);
-    $result->execute();
-    $result->store_result();
+    $stmt = $conexion->prepare($sql);
+    $stmt->bind_param('s', $_GET["articulo"]);
+    $stmt->execute();
 
-    $totEmp = $result->num_rows();
+    $result = $stmt->get_result();
+    $totEmp = $result->num_rows;
 
     if ($totEmp > 0) {
         echo '<div  class="table">';
         echo '<table>';
         echo "<tr><th>Artículo</th><th>Precio</th></tr>";
-        while ($rowEmp = mysqli_fetch_assoc($resEmp)) {
+        while ($rowEmp = $result->fetch_assoc()) {
             echo "<tr><td> " . $rowEmp['Nombre'] . "</td><td> " . $rowEmp['Precio'] . "</td></tr>";
         }
         echo '</table>';
@@ -34,11 +34,11 @@ if (isset($_GET["articulo"])) {
         echo "Artículo no encontrado. :(";
     }
 
+    $stmt->close();
+    $conexion->close();
 
 }
-
 ?>
-
 </form>
 </form>
 </body>
