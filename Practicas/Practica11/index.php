@@ -2,7 +2,7 @@
 // Iniciar sesión
 session_start();
 $_SESSION = array();
-include("simple-php-captcha/simple-php-captcha.php");
+include('simple-php-captcha/simple-php-captcha.php');
 $_SESSION['captcha'] = simple_php_captcha();
 
 // Comprobar Si se ha enviado el formulario
@@ -11,6 +11,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     //Comprobar que el usuario está autorizado a entrar
     $usuario = $_REQUEST['usuario'];
     $clave = $_REQUEST['clave'];
+    $captcha = $_REQUEST['captcha'];
+    $old_captcha = $_REQUEST['old_captcha'];
 
     //Conexión y consulta a la base de datos
     $conexion = mysqli_connect("localhost", "root", "", "demos")
@@ -22,10 +24,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     $num_filas = mysqli_num_rows($resultado);
 
-    var_dump($_SESSION['captcha']['code']);
-
     //Los datos introducidos son correctos. Se registra la sesión y se redirige al menu.
-    if($num_filas > 0 /*&& $captcha == $_SESSION['captcha']['code']*/){
+    if($num_filas > 0 && $captcha == $old_captcha){
         $usuario_valido = $usuario;
 
         $_SESSION["usuario_valido"] = $usuario_valido;
@@ -75,6 +75,7 @@ else
         </p>
         <p>
             <input type="text" name="captcha">
+            <input type="hidden" name="old_captcha" value="<?=$_SESSION['captcha']['code']?>">
         </p>
         <p><input type="submit" value="entrar"/></p>
     </form>
