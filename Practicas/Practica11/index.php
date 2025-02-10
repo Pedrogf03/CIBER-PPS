@@ -1,6 +1,6 @@
 <?php
 // Iniciar sesión
-//session_start();
+session_start();
 $_SESSION = array();
 include("simple-php-captcha/simple-php-captcha.php");
 $_SESSION['captcha'] = simple_php_captcha();
