@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="ExampleLoginPHP">
+    <serverData>
+      <paths name="ExampleLoginPHP">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="ciber/simple-php-captcha" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>
